@@ -7,9 +7,16 @@ import {
 } from "react-router-dom";
 import AuthRoutes from "./components/auth/auth-routes";
 import ProtectedRoute from "./components/auth/protected-route";
+import {
+  AdminPrefetchComponent,
+  InstructorPrefetchComponent,
+} from "./components/prefetch-component";
+import AdminLayout from "./layouts/admin-layout";
 import AppLayout from "./layouts/app-layout";
 import AuthLayout from "./layouts/auth-layout";
+import AdminInstructors from "./pages/admin-instructors";
 import AdminPage from "./pages/admin-page";
+import CreateCoursePage from "./pages/create-course-page";
 import HomePage from "./pages/home-page";
 import InstructorPage from "./pages/instructor-page";
 import LoginPage from "./pages/login-page";
@@ -28,10 +35,22 @@ const router = createBrowserRouter(
       </Route>
       <Route element={<AppLayout />}>
         <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
-          <Route path="/admin" element={<AdminPage />} />
+          <Route element={<AdminPrefetchComponent />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/instructors" element={<AdminInstructors />} />
+              <Route
+                path="/admin/create-course"
+                index
+                element={<CreateCoursePage />}
+              />
+            </Route>
+          </Route>
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["INSTRUCTOR"]} />}>
-          <Route path="/instructor" element={<InstructorPage />} />
+          <Route element={<InstructorPrefetchComponent />}>
+            <Route path="/instructor" element={<InstructorPage />} />
+          </Route>
         </Route>
       </Route>
     </>
