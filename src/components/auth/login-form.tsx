@@ -10,16 +10,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useLoginUserMutation } from "@/features/api/authApiSlice";
+import { setAccessToken, setCredentials } from "@/features/userSlice";
 import { LoginSchema } from "@/schemas/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 
 const LoginForm = () => {
-  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const [loginUser, { isLoading }] = useLoginUserMutation();
+  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -30,21 +36,20 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    setIsPending(true);
-    await axios
-      .post(`${import.meta.env.VITE_API_URL}/auth/login`, values, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response.data);
-        setError("");
-        setIsPending(false);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-        setError(error.response.data.message);
-        setIsPending(false);
-      });
+    try {
+      const data = await loginUser(values).unwrap();
+      dispatch(setCredentials(data.user));
+      dispatch(setAccessToken(data.accessToken));
+      if (data.user.role === "ADMIN") {
+        navigate("/admin");
+      }
+      if (data.user.role === "INSTRUCTOR") {
+        navigate("/instructor");
+      }
+    } catch (error: any) {
+      console.log(error);
+      setError(error.data.message);
+    }
   };
 
   return (
@@ -94,7 +99,7 @@ const LoginForm = () => {
               )}
             />
             {error && <FormError error={error} />}
-            <FormButton isPending={isPending} label={"Login"} />
+            <FormButton isPending={isLoading} label={"Login"} />
           </div>
         </form>
       </Form>

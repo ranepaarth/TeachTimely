@@ -10,18 +10,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRegisterUserMutation } from "@/features/api/authApiSlice";
 import { RegisterSchema } from "@/schemas/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import FormSuccess from "../form-success";
 
 const SignUpForm = () => {
-  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -33,25 +34,18 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
-    setIsPending(true);
-    setError("");
-    setSuccess("");
-    await axios
-      .post(`${import.meta.env.VITE_API_URL}/auth/register`, values, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response.data);
-        setError("");
-        setSuccess(response.data.message);
-        setIsPending(false);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-        setError(error.response.data.message);
-        setSuccess("");
-        setIsPending(false);
-      });
+    try {
+      setError("");
+      setSuccess("");
+      const response = await registerUser(values).unwrap();
+
+      if (response.success) {
+        setSuccess(response.message);
+      }
+    } catch (error: any) {
+      setSuccess("");
+      setError(error.data.message);
+    }
   };
 
   return (
@@ -119,7 +113,7 @@ const SignUpForm = () => {
             />
             {error && <FormError error={error} />}
             {success && <FormSuccess success={success} />}
-            <FormButton isPending={isPending} label={"Create account"} />
+            <FormButton isPending={isLoading} label={"Create account"} />
           </div>
         </form>
       </Form>
