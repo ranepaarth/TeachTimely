@@ -16,7 +16,9 @@ const initialState: UserStateTypes = {
   user: sessionStorage.getItem("userInfo")
     ? JSON.parse(sessionStorage.getItem("userInfo")!)
     : null,
-  token: "",
+  token: sessionStorage.getItem("token")
+    ? JSON.parse(sessionStorage.getItem("token")!)
+    : null,
 };
 
 export const userSlice = createSlice({
