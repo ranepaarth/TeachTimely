@@ -21,7 +21,14 @@ export const instructorApiSlice = apiSlice.injectEndpoints({
       },
       providesTags:["Instructors"]
     }),
+    getInstructorCourses:builder.query({
+      query:()=>({
+        url:'/instructor/me',
+        method:'GET'
+      }),
+      providesTags:['Instructor']
+    })
   }),
 });
 
-export const { useGetAllInstructorsQuery } = instructorApiSlice;
+export const { useGetAllInstructorsQuery,useGetInstructorCoursesQuery } = instructorApiSlice;
