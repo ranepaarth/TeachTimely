@@ -1,5 +1,6 @@
 import { RootState } from "@/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Lecture } from "./instructorsSlice";
 
 export interface Course {
   _id: string;
@@ -9,7 +10,7 @@ export interface Course {
   image: string;
   createdAt: string;
   updatedAt: string;
-  lectures: any;
+  lectures: Lecture[];
 }
 
 interface CoursesStateTypes {
