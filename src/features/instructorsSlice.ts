@@ -1,10 +1,16 @@
+import { RootState } from "@/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface Lecture {
+  date:string,
+  _id:string
+}
 export interface User {
   name: string;
   email: string;
   id: string;
   role: "INSTRUCTOR";
+  lectures:Lecture[]
 }
 interface InstructorsStateTypes {
   allInstructors: User[];
@@ -19,7 +25,6 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setInstructors: (state: InstructorsStateTypes, action: PayloadAction) => {
-      console.log(action);
       state.allInstructors = action.payload!;
     },
   },
@@ -27,9 +32,8 @@ export const userSlice = createSlice({
 
 export const { setInstructors } = userSlice.actions;
 
-export const selectInstructors = (state: InstructorsStateTypes) => {
-  console.log(state.allInstructors);
-  return state.allInstructors;
+export const selectInstructors = (state: RootState) => {
+  return state.instructors.allInstructors;
 };
 
 export default userSlice.reducer;
