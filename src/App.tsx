@@ -14,9 +14,10 @@ import {
 import AdminLayout from "./layouts/admin-layout";
 import AppLayout from "./layouts/app-layout";
 import AuthLayout from "./layouts/auth-layout";
+import CoursesPage from "./pages/admin-courses-page";
+import CreateCoursePage from "./pages/admin-create-course-page";
 import AdminInstructors from "./pages/admin-instructors";
 import AdminPage from "./pages/admin-page";
-import CreateCoursePage from "./pages/create-course-page";
 import HomePage from "./pages/home-page";
 import InstructorPage from "./pages/instructor-page";
 import LoginPage from "./pages/login-page";
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
             <Route element={<AdminLayout />}>
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/admin/instructors" element={<AdminInstructors />} />
+              <Route path="/admin/courses" element={<CoursesPage />} />
               <Route
                 path="/admin/create-course"
                 index
