@@ -19,6 +19,7 @@ export const instructorApiSlice = apiSlice.injectEndpoints({
           console.log(error);
         }
       },
+      providesTags:["Instructors"]
     }),
   }),
 });
