@@ -1,6 +1,7 @@
+import { setAllCourses } from "../coursesSlice";
 import { apiSlice } from "./apiSlice";
 
-const courseApiSlice = apiSlice.injectEndpoints({
+export const courseApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createCourse: builder.mutation({
       query: (data) => {
@@ -14,7 +15,24 @@ const courseApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["Courses"],
     }),
+    getAllCourses: builder.query({
+      query: () => ({
+        url: "/courses",
+        method: "GET",
+      }),
+      async onQueryStarted(_, api) {
+        try {
+          const { data } = await api.queryFulfilled;
+          api.dispatch(setAllCourses(data));
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      providesTags: ["Courses"],
+    }),
   }),
 });
 
-export const { useCreateCourseMutation } = courseApiSlice;
+export const { useCreateCourseMutation, useGetAllCoursesQuery } =
+  courseApiSlice;
