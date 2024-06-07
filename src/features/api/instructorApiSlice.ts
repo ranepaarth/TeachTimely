@@ -8,6 +8,7 @@ export const instructorApiSlice = apiSlice.injectEndpoints({
         url: "/admin/instructors",
         method: "GET",
       }),
+      // @ts-ignore
       async onQueryStarted(arg, api) {
         try {
           const { data } = await api.queryFulfilled;

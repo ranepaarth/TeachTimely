@@ -6,13 +6,9 @@ import { Outlet } from "react-router-dom";
 
 export const AdminPrefetchComponent = () => {
   useEffect(() => {
-    const instructors = store.dispatch(
-      instructorApiSlice.endpoints.getAllInstructors.initiate("")
-    );
+    store.dispatch(instructorApiSlice.endpoints.getAllInstructors.initiate(""));
 
-    const courses = store.dispatch(
-      courseApiSlice.endpoints.getAllCourses.initiate("")
-    );
+    store.dispatch(courseApiSlice.endpoints.getAllCourses.initiate(""));
   }, []);
   return <Outlet />;
 };
