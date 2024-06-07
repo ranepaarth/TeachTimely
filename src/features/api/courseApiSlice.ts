@@ -37,7 +37,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         body: data,
         method: "PATCH",
       }),
-      invalidatesTags: ["Courses", "Instructors"],
+      invalidatesTags: ["Courses", "Instructors","Instructor"],
     }),
   }),
 });
