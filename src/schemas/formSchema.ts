@@ -27,3 +27,12 @@ export const CreateCourseSchema = z.object({
     .string()
     .min(4, "Your description must be at least 10 characters"),
 });
+
+export const UpdateCourseSchema = z.object({
+  date: z.date({
+    required_error: "Provide a lecture date",
+  }),
+  instructorId: z.string({
+    required_error: "Select an instructor for conducting the lecture",
+  }),
+});

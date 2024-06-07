@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Course } from "@/features/coursesSlice";
 import { EditIcon } from "lucide-react";
 import moment from "moment";
+import { CourseLectureForm } from "./course-lecture-form";
 
 type CourseCardsProps = {
   course: Course;
@@ -36,7 +37,7 @@ const CourseCard = ({ course }: CourseCardsProps) => {
           {course.level}
         </span>
         <DialogContent>
-          {/* Course update form */}
+          <CourseLectureForm course={course} />
         </DialogContent>
         <CardContent className="bg-neutral-100 p-4 flex justify-center rounded-t-lg">
           <div>

@@ -31,8 +31,16 @@ export const courseApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: ["Courses"],
     }),
+    updateCourse: builder.mutation({
+      query: ({ courseId, data }) => ({
+        url: `/courses/update/${courseId}/lectures`,
+        body: data,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Courses", "Instructors"],
+    }),
   }),
 });
 
-export const { useCreateCourseMutation, useGetAllCoursesQuery } =
+export const { useCreateCourseMutation, useGetAllCoursesQuery,useUpdateCourseMutation } =
   courseApiSlice;
