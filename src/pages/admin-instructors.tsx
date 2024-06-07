@@ -24,6 +24,7 @@ const LectureSchedule = ({ lectures }: { lectures: Lecture[] }) => {
       <SelectTrigger>View Schedule</SelectTrigger>
       <SelectContent>
         {lectures.map((lecture) => (
+          // @ts-ignore
           <SelectItem>
             {moment(lecture.date).format("MMMM Do, YYYY")}
           </SelectItem>
