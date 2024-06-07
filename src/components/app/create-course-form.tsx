@@ -38,7 +38,7 @@ const CreateCourseForm = () => {
     resolver: zodResolver(CreateCourseSchema),
     defaultValues: {
       name: "",
-      level: "easy",
+      level: "beginner",
       description: "",
     },
   });
@@ -163,9 +163,9 @@ const CreateCourseForm = () => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="easy">Easy</SelectItem>
-                          <SelectItem value="medum">Medium</SelectItem>
-                          <SelectItem value="hard">Hard</SelectItem>
+                          <SelectItem value="beginner">Beginner</SelectItem>
+                          <SelectItem value="intermediate">Intermediate</SelectItem>
+                          <SelectItem value="advance">Advance</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
