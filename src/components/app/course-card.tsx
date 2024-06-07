@@ -14,6 +14,9 @@ import { CourseLectureForm } from "./course-lecture-form";
 
 type CourseCardsProps = {
   course: Course;
+  showFooter: boolean;
+  showLectures: boolean;
+  showEditIcon:boolean
 };
 
 const className = {
@@ -22,13 +25,13 @@ const className = {
   advance: "bg-red-200 text-red-600",
 };
 
-const CourseCard = ({ course }: CourseCardsProps) => {
+const CourseCard = ({ course, showFooter, showLectures,showEditIcon }: CourseCardsProps) => {
   return (
     <Dialog>
       <Card className="shadow-sm group relative">
-        <DialogTrigger className="absolute  top-2 right-2 text-neutral-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out">
+        {showEditIcon && <DialogTrigger className="absolute  top-2 right-2 text-neutral-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out">
           <EditIcon className="w-5 h-5" />
-        </DialogTrigger>
+        </DialogTrigger>}
         <span
           className={`absolute capitalize px-2 py-1 rounded-tl-lg ${
             className[course.level]
@@ -57,11 +60,23 @@ const CourseCard = ({ course }: CourseCardsProps) => {
           </CardDescription>
         </CardHeader>
 
-        <CardFooter className="mt-auto flex justify-between text-xs">
-          <p className="font-normal text-neutral-400">
-            Course created: {moment(course.createdAt).fromNow()}
-          </p>
-        </CardFooter>
+        {showLectures && (
+          <CardContent className="flex flex-wrap gap-2">
+            {course.lectures.map((lecture) => (
+              <span className="px-2 py-1 border rounded-sm shadow text-xs">
+                {moment(lecture.date).format("MMMM Do, YYYY")}
+              </span>
+            ))}
+          </CardContent>
+        )}
+
+        {showFooter && (
+          <CardFooter className="mt-auto flex justify-between text-xs">
+            <p className="font-normal text-neutral-400">
+              Course created: {moment(course.createdAt).fromNow()}
+            </p>
+          </CardFooter>
+        )}
       </Card>
     </Dialog>
   );
