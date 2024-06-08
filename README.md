@@ -1,9 +1,8 @@
 # Online Lecture Scheduling Module 📚
 📖 A full stack MERN web application for managing and assigning course lectures to instructors 🧑‍🏫 
 
-[Live Demo](https://next-auth-advanced-black.vercel.app/)
+[Live Demo](https://teach-timely.vercel.app/)
 
-![Untitled_Project_V1](https://github.com/ranepaarth/next-auth-advanced/assets/130083485/0943188a-1ad0-4562-9095-c5f7a6c0f551)
 
 
 ## Features
