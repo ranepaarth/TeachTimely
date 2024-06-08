@@ -37,7 +37,7 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     try {
-      setError("")
+      setError("");
       const data = await loginUser(values).unwrap();
       dispatch(setCredentials(data.user));
       dispatch(setAccessToken(data.accessToken));
@@ -48,7 +48,7 @@ const LoginForm = () => {
         navigate("/instructor");
       }
     } catch (error: any) {
-      console.log(error);
+      //console.log(error);
       setError(error.data.message);
     }
   };

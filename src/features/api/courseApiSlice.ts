@@ -5,8 +5,8 @@ export const courseApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createCourse: builder.mutation({
       query: (data) => {
-        console.log(data, "Inside API SLICE");
-        console.log("Request sent");
+        //console.log(data, "Inside API SLICE");
+        //console.log("Request sent");
         return {
           url: "/courses/create",
           method: "POST",
@@ -24,9 +24,9 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await api.queryFulfilled;
           api.dispatch(setAllCourses(data));
-          console.log(data);
+          //console.log(data);
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
       },
       providesTags: ["Courses"],
@@ -37,10 +37,13 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         body: data,
         method: "PATCH",
       }),
-      invalidatesTags: ["Courses", "Instructors","Instructor"],
+      invalidatesTags: ["Courses", "Instructors", "Instructor"],
     }),
   }),
 });
 
-export const { useCreateCourseMutation, useGetAllCoursesQuery,useUpdateCourseMutation } =
-  courseApiSlice;
+export const {
+  useCreateCourseMutation,
+  useGetAllCoursesQuery,
+  useUpdateCourseMutation,
+} = courseApiSlice;

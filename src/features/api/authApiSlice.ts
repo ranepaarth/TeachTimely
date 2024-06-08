@@ -19,7 +19,7 @@ const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(_, api) {
         try {
           const { data } = await api.queryFulfilled;
-          console.log(data);
+          //console.log(data);
           await api.dispatch(setCredentials(data.user));
           await api.dispatch(setAccessToken(data.accessToken));
         } catch (error) {}
@@ -39,11 +39,15 @@ const authApi = apiSlice.injectEndpoints({
             api.dispatch(apiSlice.util.resetApiState());
           }, 1000);
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
       },
     }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation,useLogoutUserMutation } = authApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useLogoutUserMutation,
+} = authApi;

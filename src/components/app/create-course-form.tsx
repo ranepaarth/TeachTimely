@@ -53,12 +53,12 @@ const CreateCourseForm = () => {
   const [createCourse, { isLoading }] = useCreateCourseMutation();
 
   const onSubmit = async () => {
-    setError("")
-    setSuccess("")
+    setError("");
+    setSuccess("");
     const formData = new FormData();
     if (fileRef.current?.files) {
       formData.append("image", fileRef.current?.files[0]);
-      console.log(fileRef.current?.files[0]!);
+      //console.log(fileRef.current?.files[0]!);
     }
     formData.append("name", form.getValues("name"));
     formData.append("level", form.getValues("level"));
@@ -66,7 +66,7 @@ const CreateCourseForm = () => {
 
     try {
       const response = await createCourse(formData).unwrap();
-      console.log({ response });
+      //console.log({ response });
       if (response.success) {
         form.reset();
         setFile("");
@@ -76,7 +76,7 @@ const CreateCourseForm = () => {
         setSuccess(response.message);
       }
     } catch (error: any) {
-      console.log(error);
+      //console.log(error);
       setError(error.data.message);
     }
   };
@@ -166,7 +166,9 @@ const CreateCourseForm = () => {
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="beginner">Beginner</SelectItem>
-                          <SelectItem value="intermediate">Intermediate</SelectItem>
+                          <SelectItem value="intermediate">
+                            Intermediate
+                          </SelectItem>
                           <SelectItem value="advance">Advance</SelectItem>
                         </SelectContent>
                       </Select>

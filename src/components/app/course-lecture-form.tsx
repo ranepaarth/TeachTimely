@@ -29,6 +29,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import * as z from "zod";
 import FormButton from "../form-button";
+import FormError from "../form-error";
 import FormSuccess from "../form-success";
 import {
   CardContent,
@@ -43,13 +44,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import FormError from "../form-error";
 
-export function CourseLectureForm({
-  course,
-}: {
-  course: Course;
-}) {
+export function CourseLectureForm({ course }: { course: Course }) {
   const form = useForm<z.infer<typeof UpdateCourseSchema>>({
     resolver: zodResolver(UpdateCourseSchema),
   });
@@ -59,21 +55,21 @@ export function CourseLectureForm({
   const [updateCourse, { isLoading }] = useUpdateCourseMutation();
 
   const onSubmit = async (values: z.infer<typeof UpdateCourseSchema>) => {
-    setSuccess("")
-    setError("")
+    setSuccess("");
+    setError("");
     try {
       const response = await updateCourse({
         courseId: course._id,
         data: values,
       }).unwrap();
 
-      if(response.success){
-        setSuccess(response.message)
+      if (response.success) {
+        setSuccess(response.message);
       }
-      console.log(response);
-    } catch (error:any) {
-      console.log(error);
-      setError(error.data.message)
+      //console.log(response);
+    } catch (error: any) {
+      //console.log(error);
+      setError(error.data.message);
     }
   };
 

@@ -10,14 +10,14 @@ const Navbar = () => {
   const [logoutUser] = useLogoutUserMutation();
 
   const handleClick = async () => {
-    console.log("clicked");
+    //console.log("clicked");
     try {
       dispatch(logout());
       await logoutUser("").then(() => {
         navigate("/login");
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
   return (

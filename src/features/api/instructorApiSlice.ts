@@ -13,23 +13,24 @@ export const instructorApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await api.queryFulfilled;
 
-          console.log(data);
+          //console.log(data);
           await api.dispatch(setInstructors(data));
-          console.log(data);
+          //console.log(data);
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
       },
-      providesTags:["Instructors"]
+      providesTags: ["Instructors"],
     }),
-    getInstructorCourses:builder.query({
-      query:()=>({
-        url:'/instructor/me',
-        method:'GET'
+    getInstructorCourses: builder.query({
+      query: () => ({
+        url: "/instructor/me",
+        method: "GET",
       }),
-      providesTags:['Instructor']
-    })
+      providesTags: ["Instructor"],
+    }),
   }),
 });
 
-export const { useGetAllInstructorsQuery,useGetInstructorCoursesQuery } = instructorApiSlice;
+export const { useGetAllInstructorsQuery, useGetInstructorCoursesQuery } =
+  instructorApiSlice;

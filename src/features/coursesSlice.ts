@@ -26,7 +26,7 @@ export const coursesSlice = createSlice({
   initialState,
   reducers: {
     setAllCourses: (state, action: PayloadAction) => {
-      console.log(action.payload, "PAYLOAD");
+      //console.log(action.payload, "PAYLOAD");
       state.allCourses = action.payload!;
     },
   },
