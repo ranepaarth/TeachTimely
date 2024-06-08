@@ -37,6 +37,7 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     try {
+      setError("")
       const data = await loginUser(values).unwrap();
       dispatch(setCredentials(data.user));
       dispatch(setAccessToken(data.accessToken));

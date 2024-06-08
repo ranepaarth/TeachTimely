@@ -53,6 +53,8 @@ const CreateCourseForm = () => {
   const [createCourse, { isLoading }] = useCreateCourseMutation();
 
   const onSubmit = async () => {
+    setError("")
+    setSuccess("")
     const formData = new FormData();
     if (fileRef.current?.files) {
       formData.append("image", fileRef.current?.files[0]);
